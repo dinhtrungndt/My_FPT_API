@@ -10,6 +10,7 @@ const news = new Schema(
     content: { type: String, required: true },
     img: { type: String, required: true },
     date: { type: String, required: true },
+    dress: { type: String, required: true },
   },
   {
     versionKey: false,

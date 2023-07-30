@@ -12,6 +12,7 @@ require("./models/typesubject");
 require("./models/subject");
 require("./models/news");
 require("./models/schedule");
+require("./models/noibat");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -21,6 +22,7 @@ var typeSubjectRouter = require("./routes/typesubject");
 var subjectRouter = require("./routes/subject");
 var newsRouter = require("./routes/news");
 var scheduleRouter = require("./routes/schedule");
+var noibatRouter = require("./routes/noibat");
 
 var app = express();
 
@@ -52,6 +54,7 @@ app.use("/typesubject", typeSubjectRouter);
 app.use("/subject", subjectRouter);
 app.use("/news", newsRouter);
 app.use("/schedule", scheduleRouter);
+app.use("/noibat", noibatRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
