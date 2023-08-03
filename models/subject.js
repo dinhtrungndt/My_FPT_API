@@ -7,10 +7,13 @@ const subject = new Schema(
   {
     id: { type: ObjectId }, // khóa chính
     name: { type: String, required: true },
+    lop: { type: String, required: true },
     GV: { type: String, required: true },
     room: { type: String, required: true },
-    time: { type: String, required: true },
+    timeStart: { type: String, required: true },
+    timeEnd: { type: String, required: true },
     idCate: { type: ObjectId, ref: "typesubject" }, // khóa ngoại
+    ngayHoc: { type: Date, required: true }, // Thêm trường ngayHoc kiểu Date để lưu thông tin về ngày học
   },
   {
     versionKey: false,

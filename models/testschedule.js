@@ -5,13 +5,14 @@ const testschedule = new Schema(
   {
     id: { type: ObjectId }, // khóa chính
     idCate: { type: ObjectId, ref: "login" }, // khóa ngoại
-    ngayHoc: { type: String, required: true },
+    timeStart: { type: String, required: true },
+    timeEnd: { type: String, required: true },
+    ngayThi: { type: String, required: true },
     diaDiem: { type: String, required: true },
-    username: {
-      id: { type: ObjectId, ref: "login" },
-      email: { type: String, required: true },
-    },
+    username: { type: ObjectId, ref: "login" },
     ca: { type: Number, required: true },
+    Gv: { type: String, required: true },
+    name: { type: String, required: true },
   },
   {
     versionKey: false,

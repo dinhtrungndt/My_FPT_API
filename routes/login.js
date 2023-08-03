@@ -4,12 +4,27 @@ var modelLogin = require("../models/login");
 var mongoose = require("mongoose");
 var bcrypt = require("bcryptjs");
 var jwt = require("jsonwebtoken");
+const multer = require("multer");
+const cloudinary = require("cloudinary");
 
 // lấy danh sách đăng nhập
 //http://localhost:3000/login/get-login
 router.get("/get-login", async function (req, res, next) {
   var data = await modelLogin.find();
   res.json(data);
+});
+
+// lấy chi tiết người dùng
+// http://localhost:3000/login/get-login-by-id/:id
+router.get("/get-login-by-id/:id", async function (req, res, next) {
+  try {
+    const { id } = req.params;
+    const data = await modelLogin.findById(id);
+    res.json({ status: 1, data });
+  } catch (err) {
+    console.error("Lỗi khi lấy chi tiết bài viết:", err);
+    res.json({ status: 0, message: "Đã xảy ra lỗi khi lấy chi tiết bài viết" });
+  }
 });
 
 //http://localhost:3000/login
@@ -107,7 +122,8 @@ router.delete("/delete-login", async function (req, res, next) {
 router.put("/update-login/:id", async function (req, res, next) {
   try {
     const { id } = req.params;
-
+    // Các bước cập nhập thông tin người dùng
+    console.log(req.body);
     // kiểm tra xem id có đúng định dạng ObjectID hay không
     if (!mongoose.isValidObjectId(id)) {
       return res.json({ status: 0, message: "Id không hợp lệ" });
@@ -119,9 +135,7 @@ router.put("/update-login/:id", async function (req, res, next) {
       return res.json({ status: 0, message: "Người dùng không tồn tại" });
     }
 
-    // Các bước cập nhập thông tin người dùng
     const { name, email, sbd, password, img } = req.body;
-
     // Cập nhập trường Name nếu có tồn tại trong yếu cầu
     if (name) {
       user.name = name;
@@ -144,5 +158,57 @@ router.put("/update-login/:id", async function (req, res, next) {
     res.json({ status: 0, message: "Cập nhật thất bại", error: err.message });
   }
 });
+
+// Cấu hình Cloudinary
+cloudinary.v2.config({
+  cloud_name: "dqo8whkdr",
+  api_key: "217742758864799",
+  api_secret: "WsiHN2cYF97vPkTKHbG1YoBwtTM",
+  secure: true,
+});
+
+// Sử dụng Multer để xử lý upload file
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 10 * 1024 * 1024, // 10MB max file size
+  },
+});
+
+// Upload ảnh
+// http://localhost:3000/login/upload-img-login
+router.post(
+  "/upload-img-login",
+  upload.single("login"),
+  async (req, res, next) => {
+    try {
+      const { file } = req;
+      if (!file) {
+        return res.json({ status: 0, uri: "" });
+      } else {
+        // Upload ảnh lên Cloudinary
+        const result = await cloudinary.uploader.upload(file.path);
+        const imageUrl = result.secure_url;
+
+        // Sau khi đã upload lên Cloudinary, có thể xóa tệp tạm trên máy chủ
+        // fs.unlinkSync(file.path);
+
+        return res.json({ status: 1, url: imageUrl });
+      }
+    } catch (error) {
+      console.log("Upload image error: ", error);
+      return res.json({ status: 0, url: "" });
+    }
+  }
+);
 
 module.exports = router;

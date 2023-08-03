@@ -12,11 +12,31 @@ router.get("/", async function (req, res, next) {
 // http://localhost:3000/testschedule/add-testschedule
 router.post("/add-testschedule", async function (req, res, next) {
   try {
-    const { idCate, ngayHoc, diaDiem, ca, username } = req.body;
+    const {
+      idCate,
+      timeStart,
+      timeEnd,
+      ngayThi,
+      diaDiem,
+      ca,
+      username,
+      Gv,
+      name,
+    } = req.body;
     console.log(req.body);
 
     // tạo model
-    const Data = { idCate, ngayHoc, diaDiem, ca, username };
+    const Data = {
+      idCate,
+      timeStart,
+      timeEnd,
+      ngayThi,
+      diaDiem,
+      ca,
+      username,
+      Gv,
+      name,
+    };
 
     await modelTestschedule.create(Data);
 
@@ -52,11 +72,33 @@ router.delete("/delete-testschedule", async function (req, res, next) {
 //http://localhost:3000/testschedule/update-testschedule
 router.put("/update-testschedule", async function (req, res, next) {
   try {
-    const { id, idCate, ngayHoc, diaDiem, ca, username } = req.body;
+    const {
+      id,
+      idCate,
+      timeStart,
+      timeEnd,
+      ngayThi,
+      diaDiem,
+      ca,
+      username,
+      Gv,
+      name,
+    } = req.body;
     console.log(req.body);
 
     // tạo model
-    const Data = { id, idCate, ngayHoc, diaDiem, ca, username };
+    const Data = {
+      id,
+      idCate,
+      timeStart,
+      timeEnd,
+      ngayThi,
+      diaDiem,
+      ca,
+      username,
+      Gv,
+      name,
+    };
 
     await modelTestschedule.updateOne({ _id: id }, Data);
 
