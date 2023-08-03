@@ -18,6 +18,7 @@ require("./models/bangdiem");
 require("./models/lichsu");
 require("./models/hocphi");
 require("./models/khenthuong");
+require("./models/diendan");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -32,6 +33,7 @@ var bangdiemRouter = require("./routes/bangdiem");
 var lichsuRouter = require("./routes/lichsu");
 var hocphiRouter = require("./routes/hocphi");
 var khenthuongRouter = require("./routes/khenthuong");
+var diendanRouter = require("./routes/diendan");
 
 var app = express();
 
@@ -72,6 +74,7 @@ app.use("/bangdiem", bangdiemRouter);
 app.use("/lichsu", lichsuRouter);
 app.use("/hocphi", hocphiRouter);
 app.use("/khenthuong", khenthuongRouter);
+app.use("/diendan", diendanRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
