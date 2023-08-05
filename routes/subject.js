@@ -21,6 +21,7 @@ router.post("/add-subject", async function (req, res, next) {
 
     res.json({ status: 1, message: "Thêm mới thành công", Data });
   } catch (err) {
+    res.json(err);
     res.json({ status: 0, message: "Thêm mới thất bại" });
   }
 });
