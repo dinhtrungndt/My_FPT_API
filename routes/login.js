@@ -167,6 +167,7 @@ cloudinary.v2.config({
   secure: true,
 });
 
+
 // Sử dụng Multer để xử lý upload file
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {

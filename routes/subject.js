@@ -11,11 +11,11 @@ router.get("/", async function (req, res, next) {
 // Thêm môn học
 router.post("/add-subject", async function (req, res, next) {
   try {
-    const { name, GV, room, lop, timeStart, timeEnd, idCate, ngayHoc } =
+    const { title, GV, room, lop, timeStart, timeEnd, idCate, ngayHoc } =
       req.body;
 
     // Tạo model
-    const Data = { name, GV, room, lop, timeStart, timeEnd, idCate, ngayHoc };
+    const Data = { title, GV, room, lop, timeStart, timeEnd, idCate, ngayHoc };
 
     await modelSubject.create(Data);
 
@@ -39,11 +39,11 @@ router.delete("/delete-subject", async function (req, res, next) {
 // Cập nhật môn học
 router.put("/update-subject", async function (req, res, next) {
   try {
-    const { id, name, GV, room, lop, timeStart, timeEnd, idCate, ngayHoc } =
+    const { id, title, GV, room, lop, timeStart, timeEnd, idCate, ngayHoc } =
       req.body;
 
     await modelSubject.findByIdAndUpdate(id, {
-      name,
+      title,
       GV,
       room,
       timeStart,
