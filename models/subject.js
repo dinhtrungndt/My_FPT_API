@@ -6,7 +6,7 @@ const ObjectId = Schema.ObjectId;
 const subject = new Schema(
   {
     id: { type: ObjectId }, // khóa chính
-    title: { type: String, required: true },
+    name: { type: String, required: true },
     lop: { type: String, required: true },
     GV: { type: String, required: true },
     room: { type: String, required: true },
