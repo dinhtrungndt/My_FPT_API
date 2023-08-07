@@ -53,7 +53,7 @@ app.use(bodyParser.json());
 
 //connect database
 mongoose
-  .connect("https://myfpt.onrender.com", {
+  .connect("mongodb+srv://my-fpt:my-fpt@website.ihyblda.mongodb.net/My_FPT", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
